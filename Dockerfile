@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir \
 # Copy application files
 COPY flow.py /app/flow.py
 COPY SSE_PT10kemb.pth /app/SSE_PT10kemb.pth
+COPY utilities.py /app/utilities.py
 
 # Expose port for FastAPI
 EXPOSE 8000
