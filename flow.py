@@ -7,8 +7,10 @@ from fastapi import FastAPI, HTTPException
 from prefect import flow, task, get_run_logger
 from mlflow.tracking import MlflowClient
 
-MODEL_PATH = "food11.pth"
-MODEL_NAME = "GourmetGramFood11Model"
+from utilities import build_model_from_ckpt
+
+MODEL_PATH = "SSE_PT10kemb.pth"
+MODEL_NAME = "MovieRecModel"
 
 app = FastAPI()
 pipeline_lock = asyncio.Lock()
@@ -18,10 +20,11 @@ def load_and_train_model():
     logger = get_run_logger()
     logger.info("Pretending to train, actually just loading a model...")
     time.sleep(10)
-    model = torch.load(MODEL_PATH, weights_only=False, map_location=torch.device('cpu'))
+    model = build_model_from_ckpt(MODEL_PATH)
     
     logger.info("Logging model to MLflow...")
     mlflow.pytorch.log_model(model, artifact_path="model")
+    log.info("Model logged to MLflow")
     return model
 
 @task
