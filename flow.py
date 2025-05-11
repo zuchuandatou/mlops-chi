@@ -25,7 +25,7 @@ def load_and_train_model():
     
     logger.info("Logging model to MLflow...")
     mlflow.pytorch.log_model(model, artifact_path="model")
-    log.info("Model logged to MLflow")
+    loger.info("Model logged to MLflow")
     return model
 
 @task
