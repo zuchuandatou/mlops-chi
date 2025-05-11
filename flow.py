@@ -20,7 +20,8 @@ def load_and_train_model():
     logger = get_run_logger()
     logger.info("Pretending to train, actually just loading a model...")
     time.sleep(10)
-    model = build_model_from_ckpt(MODEL_PATH)
+    device = torch.device("cpu") 
+    model = build_model_from_ckpt(MODEL_PATH, device)
     
     logger.info("Logging model to MLflow...")
     mlflow.pytorch.log_model(model, artifact_path="model")
